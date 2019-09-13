@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { success, failure } from "./libs/response-lib";
+import { success, failure } from "../libs/response-lib";
 
 export async function main(event, context) {
   try {

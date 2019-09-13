@@ -21,7 +21,7 @@ provider:
 
 functions:
   list:
-    handler: list.main
+    handler: functions/list.main
     events:
       - http:
           path: movies/upcoming
@@ -31,14 +31,14 @@ functions:
             template:
               application/json:: '{ "page": "$input.params(''page'')" }'
   get:
-    handler: get.main
+    handler: functions/get.main
     events:
       - http:
           path: movies/{id}
           method: get
           cors: true
   search:
-    handler: search.main
+    handler: functions/search.main
     events:
       - http:
           path: movies
