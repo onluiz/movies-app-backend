@@ -1,5 +1,5 @@
 {
-  "pathParameters": {
+  "queryStringParameters": {
     "page": "2"
   }
 }
