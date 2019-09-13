@@ -1,4 +1,4 @@
-service: api
+service: movies-api
 
 package:
   individually: true
