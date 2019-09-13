@@ -19,6 +19,18 @@ provider:
   environment:
     tmdbSecretKey: ${self:custom.environment.TMDB_SECRET_KEY}
 
+functions:
+  list:
+    handler: list.main
+    events:
+      - http:
+          path: movies/upcoming
+          method: get
+          cors: true
+          request:
+            template:
+              application/json:: '{ "page": "$input.params(''page'')" }'
+
 # Create our resources with separate CloudFormation templates
 resources:
   # API Gateway Errors
