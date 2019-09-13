@@ -37,6 +37,16 @@ functions:
           path: movies/{id}
           method: get
           cors: true
+  search:
+    handler: search.main
+    events:
+      - http:
+          path: movies
+          method: get
+          cors: true
+          request:
+            template:
+              application/json:: '{ "query" : "$input.params(''query'')", "page": "$input.params(''page'')" }'
 
 # Create our resources with separate CloudFormation templates
 resources:
