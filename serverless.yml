@@ -30,6 +30,13 @@ functions:
           request:
             template:
               application/json:: '{ "page": "$input.params(''page'')" }'
+  get:
+    handler: get.main
+    events:
+      - http:
+          path: movies/{id}
+          method: get
+          cors: true
 
 # Create our resources with separate CloudFormation templates
 resources:
