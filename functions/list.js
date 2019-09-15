@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { success, failure } from "../libs/response-lib";
+import tmdbApi from '../libs/tmdb-api';
 
 export async function main(event, context) {
   try {
     const { page } = event.queryStringParameters;
-    const movies = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.tmdbSecretKey}&language=en-US&page=${page || 1}`);
-    return success(movies.data);
+    const { data } = await tmdbApi.getUpcomingMovies(page);
+    return success(data);
   } catch (e) {
     return failure({ status: false, error: e, });
   }

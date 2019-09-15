@@ -1,6 +1,6 @@
 {
-  "pathParameters": {
+  "queryStringParameters": {
     "query": "pikachu",
-    "page": "2"
+    "page": "1"
   }
 }
