@@ -16,12 +16,13 @@ const tmdbApi = {
   },
   // time complexity 0(n2). Not performatic
   applyGenres(results = []) {
-    results.forEach((movie) => {
-      movie.genres = movie.genre_ids.map(genre_id => {
-        return genres.find(genre => genre.id === genre_id);
-      });
-    });
+    results.forEach(this.applyGenre);
   },
+  applyGenre(movie) {
+    movie.genres = movie.genre_ids.map(genre_id => {
+      return genres.find(genre => genre.id === genre_id);
+    });
+  }
 };
 
 export default tmdbApi;
