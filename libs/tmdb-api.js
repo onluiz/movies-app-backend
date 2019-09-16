@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { genres } from '../static/genres.json';
 
 const tmdbApiInstance = axios.create({ baseURL: process.env.tmdbApiUrl });
 const params = `api_key=${process.env.tmdbApiKey}&language=en-US`;
@@ -12,6 +13,14 @@ const tmdbApi = {
   },
   searchMovie(query = '', page = 1) {
     return tmdbApiInstance.get(`/search/movie?${params}&query=${query}&page=${page}&include_adult=false`);
+  },
+  // time complexity 0(n2). Not performatic
+  applyGenres(results = []) {
+    results.forEach((movie) => {
+      movie.genres = movie.genre_ids.map(genre_id => {
+        return genres.find(genre => genre.id === genre_id);
+      });
+    });
   },
 };
 
