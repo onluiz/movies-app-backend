@@ -1,4 +1,4 @@
-service: api
+service: movies-api
 
 package:
   individually: true
@@ -17,7 +17,48 @@ provider:
   stage: dev
   region: us-east-1
   environment:
-    tmdbSecretKey: ${self:custom.environment.TMDB_SECRET_KEY}
+    tmdbApiKey: ${self:custom.environment.TMDB_API_KEY}
+    tmdbApiUrl: ${self:custom.environment.TMDB_API_URL}
+    tmdbImageApiUrl: ${self:custom.environment.TMDB_IMAGE_API_URL}
+
+functions:
+  list:
+    handler: functions/list.main
+    events:
+      - http:
+          path: movies/upcoming
+          method: get
+          cors: true
+          request:
+            template:
+              application/json:: '{ "page": "$input.params(''page'')" }'
+  get:
+    handler: functions/get.main
+    events:
+      - http:
+          path: movies/{id}
+          method: get
+          cors: true
+  search:
+    handler: functions/search.main
+    events:
+      - http:
+          path: movies
+          method: get
+          cors: true
+          request:
+            template:
+              application/json:: '{ "query" : "$input.params(''query'')", "page": "$input.params(''page'')" }'
+  image:
+    handler: functions/get-image.main
+    events:
+      - http:
+          path: movies/image
+          method: get
+          cors: true
+          request:
+            template:
+              application/json:: '{ "image" : "$input.params(''image'')" }'
 
 # Create our resources with separate CloudFormation templates
 resources:
